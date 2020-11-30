@@ -17,5 +17,5 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          version: 2.0
+          version: "2.0"
           set_commits: auto
