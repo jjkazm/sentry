@@ -5,6 +5,17 @@ on:
     branches: [master]
 
 jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo -n -e "2.1" > text.txt
+      - uses: pCYSl5EDgo/cat@master
+        id: hello
+        with:
+          path: text.txt
+      - run: echo $TEXT
+        env:
+          TEXT: ${{ steps.hello.outputs.text }}
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -17,5 +28,5 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          version: "2.0"
+          version: ${{ steps.hello.outputs.text }}
           set_commits: auto
