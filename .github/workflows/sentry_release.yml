@@ -16,12 +16,13 @@ jobs:
       - run: echo $TEXT
         env:
           TEXT: ${{ steps.hello.outputs.text }}
-      - run: echo "action_state=yellow" >> $GITHUB_ENV
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: echo "action_state=yellow" >> $GITHUB_ENV
       - run: echo $action_state
+      - run: echo "Hi from the future"
       - name: Sentry Release
         uses: getsentry/action-release@v1.0.0
         env:
