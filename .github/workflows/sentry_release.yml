@@ -23,6 +23,11 @@ jobs:
       - run: echo "action_state=yellow" >> $GITHUB_ENV
       - run: echo $action_state
       - run: echo "Hi from the future"
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(cat VERSION)
+      - name: Test output
+        run: echo ${{ steps.vars.outputs.version }}
       - name: Sentry Release
         uses: getsentry/action-release@v1.0.0
         env:
