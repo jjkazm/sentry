@@ -5,24 +5,10 @@ on:
     branches: [master]
 
 jobs:
-  echo:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo -n -e "2.1" > text.txt
-      - uses: pCYSl5EDgo/cat@master
-        id: hello
-        with:
-          path: text.txt
-      - run: echo $TEXT
-        env:
-          TEXT: ${{ steps.hello.outputs.text }}
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "action_state=yellow" >> $GITHUB_ENV
-      - run: echo $action_state
-      - run: echo "Hi from the future"
       - name: Get version
         id: vars
         run: echo ::set-output name=version::$(cat VERSION)
@@ -37,4 +23,4 @@ jobs:
         with:
           environment: production
           set_commits: auto
-          version: "2.1"
+          version: ${{ steps.vars.outputs.version }}
