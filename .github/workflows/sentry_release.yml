@@ -21,6 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo $TEXT
+        env:
+          TEXT: ${{ steps.hello.outputs.text }}
       - name: Sentry Release
         uses: getsentry/action-release@v1.0.0
         env:
