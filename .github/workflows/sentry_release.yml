@@ -21,6 +21,6 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          environment: production
+          environment: staging
           set_commits: auto
           version: ${{ steps.vars.outputs.version }}
