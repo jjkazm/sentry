@@ -4,6 +4,8 @@ if ENV['SENTRY_DSN']
   Raven.configure do |config|
     config.dsn = ENV['SENTRY_DSN']
     config.current_environment = ENV.fetch('SENTRY_ENV', Rails.env)
-    config.release = File.read('VERSION') if config.current_environment == 'production'
+    if %w[production staging].include? config.current_environment
+      config.release = File.read('VERSION')
+    end
   end
 end
