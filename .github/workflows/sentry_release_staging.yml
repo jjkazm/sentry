@@ -1,15 +1,20 @@
-name: Sentry release integration
+name: Sentry release
 
 on:
   push:
     branches:
-      - develop
+      - "release/**"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(cat VERSION)
+      - name: Test output
+        run: echo ${{ steps.vars.outputs.version }}
       - name: Sentry Release
         uses: getsentry/action-release@v1.0.0
         env:
@@ -19,3 +24,4 @@ jobs:
         with:
           environment: staging
           set_commits: auto
+          version: ${{ steps.vars.outputs.version }}
