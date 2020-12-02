@@ -2,7 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches: [master]
+    branches:
+      - "releases/**"
 
 jobs:
   deploy:
@@ -21,6 +22,27 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          environment: staging
+          environment: production
           set_commits: auto
           version: ${{ steps.vars.outputs.version }}
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Sentry Release
+        uses: getsentry/action-release@v1.0.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: integration
+          set_commits: auto
+
