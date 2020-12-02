@@ -1,9 +1,9 @@
-name: Deploy
+name: Sentry release
 
 on:
   push:
     branches:
-      - "releases/**"
+      - "release/**"
 
 jobs:
   deploy:
