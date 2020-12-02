@@ -1,9 +1,6 @@
 name: Sentry release staging
 
-on:
-  push:
-    branches:
-      - "release/**"
+on: workflow_dispatch
 
 jobs:
   deploy:
