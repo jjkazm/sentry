@@ -1,6 +1,9 @@
 name: Sentry release
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    branches:
+      - develop
 
 jobs:
   deploy:
